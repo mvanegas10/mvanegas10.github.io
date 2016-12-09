@@ -2,6 +2,8 @@
     position: fixed;
     overflow-y: auto;
     text-align:center;
+    background-color: #CFEDFB;
+    padding-bottom: 2cm;
 }
 h1 {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
