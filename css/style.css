@@ -1,6 +1,7 @@
 .stuck {
     position: fixed;
     overflow-y: auto;
+    text-align:center;
 }
 h1 {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
