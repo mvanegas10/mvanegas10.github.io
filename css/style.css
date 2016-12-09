@@ -1,13 +1,16 @@
 .stuck {
-    position: fixed;
-    overflow-y: auto;
-    text-align:center;
-    background-color: #CFEDFB;
-    padding-bottom: 2cm;
+  position: fixed;
+  overflow-y: auto;
+  text-align:center;
+  background-color: #CFEDFB;
+  padding-bottom: 0.5cm;
+}
+img {
+  padding: 0.25cm 0.25cm 0.25cm 0.25cm;
 }
 h1 {
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-size: 34px;
+  font-family: "Ubuntu";
+  font-size: 38px;
   font-style: normal;
   font-variant: normal;
   font-weight: 500;
@@ -16,7 +19,7 @@ h1 {
   text-align:center;
 }
 h2 {
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: "Ubuntu";
   font-size: 22px;
   font-style: normal;
   font-variant: normal;
@@ -26,7 +29,7 @@ h2 {
   text-align:center; 
 }
 h3 {
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: "Ubuntu";
   font-size: 16px;
   font-style: normal;
   font-variant: normal;
@@ -36,7 +39,7 @@ h3 {
   text-align:center; 
 }
 p {
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: "Ubuntu";
   font-size: 16px;
   font-style: normal;
   font-variant: normal;
@@ -44,7 +47,4 @@ p {
   line-height: 20px;
   padding: 0cm 0cm 0cm 0cm;
   text-align:center; 
-}
-tspan {
-  font-size: 12px; 
 }
