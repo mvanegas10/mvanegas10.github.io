@@ -52,7 +52,7 @@ var clusters;
 var repos = [];
 var languages = {};
 var cantRepos = 0;
-var auth = authorization;
+// var auth = authorization;
 $.ajax({
     type: 'GET',
     url: 'https://api.github.com/users/mvanegas10/repos',
