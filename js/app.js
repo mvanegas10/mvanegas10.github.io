@@ -1,4 +1,4 @@
-var width = 980,
+var width = 570,
     height = 500,
     padding = 1.5, // separation between same-color nodes
     clusterPadding = 16, // separation between different-color nodes
@@ -13,32 +13,6 @@ var color = d3.scale.category10()
     .range(["#daa4ff","#74bd5b","#ec8fb4","#ff9f8a","#fbb153","#02d1e5","#91ffaa","#8bebe5","#4cbea8","#d5ffaa"])
     .domain([0,1,2,3,4,5,6,7,8,9]);
 
-var proj = [
-  {
-    "name": "Muequeta",
-    "contributions": 43,
-    "language": "Swift",
-    "svn_url": "https://github.com/mvanegas10/Muequeta"
-  },
-  {
-    "name": "Caso2",
-    "contributions": 43,
-    "language": "Swift",
-    "svn_url": "https://github.com/mvanegas10/Muequeta"
-  },  
-  {
-    "name": "javeandes-hackathon",
-    "contributions": 28,
-    "language": "JavaScript",
-    "svn_url": "https://github.com/mvanegas10/Muequeta"
-  }, 
-  {
-    "name": "ErosionIdentificationFromLandsatImages",
-    "contributions": 11,
-    "language": "Python",
-    "svn_url": "https://github.com/mvanegas10/ErosionIdentificationFromLandsatImages"
-  },    
-]
 var clusters;
 var repos = [];
 var languages = {};
@@ -59,7 +33,7 @@ $.ajax({
             languages[repo.language] = i;
             i++;
           }
-          var project = {"name" : repo.name, "svn_url": repo.svn_url, "language": repo.language};
+          var project = {"name" : repo.name, "svn_url": repo.svn_url, "language": repo.language, "description": repo.description};
           repos.push(project); 
         }        
     });
@@ -92,13 +66,14 @@ function createForceChart(nodes) {
 	var node = svg.selectAll("circle")
 	  .data(nodes)
 	.enter().append("circle")
-	  .on('mouseover', tip.show)
+	  .on('mouseover', function (d) {
+      console.log(d)
+      setDescription(d);
+      tip.show;
+    })
 	  .on('mouseout', tip.hide)	  
 	  .on('click', function (d) {
-		  var win = window.open(d.url, '_blank');
-		  win.focus();
-
-	  	console.log(d.url)})	  
+		  setDescription(d)})
 	  .style("fill", function(d) { return color(d.cluster); })      
 	  .call(force.drag);
 	    
@@ -118,7 +93,7 @@ function createForceChart(nodes) {
 	}
 
 	var svg2 = d3.select("#legend").append("svg")
-    .attr("width", width)
+    .attr("width", 980)
     .attr("height", 50);
 
 	svg2.selectAll("rect")
@@ -157,6 +132,17 @@ function createForceChart(nodes) {
         cluster.y += y;
       }
     };
+  }
+
+  function setDescription(data) {
+    console.log(data)
+    console.log(data)
+    d3.select("#projectName").text(data.text);
+    d3.select("#projectURL")
+      .text("Explore")
+      .attr("xlink:href", data.url)
+      .on("click", function() { window.open(data.url);});    
+    d3.select("#projectDescription").text(data.description);
   }
 
   // Resolves collisions between d and all other circles.
@@ -216,6 +202,7 @@ function createNodes(data) {
         cluster: i,        
         url: dat.svn_url,
         text: dat.name,
+        description: dat.description,
         contributions:dat.contributions
       };
     if (!clusters[i] || (r > clusters[i].radius)) clusters[i] = d;
