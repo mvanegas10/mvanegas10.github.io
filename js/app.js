@@ -57,9 +57,9 @@ $.ajax({
     type: 'GET',
     url: 'https://api.github.com/users/mvanegas10/repos',
     dataType: 'json',
-    beforeSend: function (xhr) {
-        xhr.setRequestHeader('Authorization', make_base_auth(auth.username, auth.password));
-    },
+    // beforeSend: function (xhr) {
+    //     xhr.setRequestHeader('Authorization', make_base_auth(auth.username, auth.password));
+    // },
     success: function (data) {
       cantRepos = data.length;
       var i = 1;      
