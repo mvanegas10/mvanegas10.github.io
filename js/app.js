@@ -52,25 +52,25 @@ var clusters;
 var repos = [];
 var languages = {};
 var cantRepos = 0;
-// var auth = authorization;
+
 $.ajax({
     type: 'GET',
     url: 'https://api.github.com/users/mvanegas10/repos',
     dataType: 'json',
-    // beforeSend: function (xhr) {
-    //     xhr.setRequestHeader('Authorization', make_base_auth(auth.username, auth.password));
-    // },
     success: function (data) {
       cantRepos = data.length;
       var i = 1;      
       data.forEach(function (repo) {
         var contributions = undefined;
-        if (languages[repo.language] === undefined)  {
-          languages[repo.language] = i;
-          i++;
-        }
-        var project = {"name" : repo.name, "svn_url": repo.svn_url, "language": repo.language};
-        repos.push(project);         
+        console.log(repo.language)
+        if (repo.language) {
+          if (languages[repo.language] === undefined)  {
+            languages[repo.language] = i;
+            i++;
+          }
+          var project = {"name" : repo.name, "svn_url": repo.svn_url, "language": repo.language};
+          repos.push(project); 
+        }        
     });
     clusters = new Array(Object.keys(languages).length); 
     createForceChart(createNodes(repos));        
@@ -133,7 +133,8 @@ function createForceChart(nodes) {
 	svg2.selectAll("rect")
 	  .data(Object.keys(languages))
 	.enter().append("rect")
-	  .attr("x",function(d, i) {return i*100 + 5})
+    .on('mouseover', function(d) {callFromLanguage(d);})
+	  .attr("x",function(d, i) {return i*140 + 25})
 	  .attr("y",10)
 	  .attr("width",20)
 	  .attr("height", 20)
@@ -142,7 +143,7 @@ function createForceChart(nodes) {
   svg2.selectAll("text")
     .data(Object.keys(languages))
   .enter().append("text")
-    .attr("x",function(d, i) {return i*100 + 30})
+    .attr("x",function(d, i) {return i*140 + 50})
     .attr("y",25)
     .attr("width",20)
     .attr("height", 20)
@@ -197,6 +198,9 @@ function createForceChart(nodes) {
   svg.call(tip);
 }
 
+function callFromLanguage (lan) {
+  console.log(lan);
+}
 
 function make_base_auth(user, password) {
     var tok = user + ':' + password;
@@ -206,12 +210,8 @@ function make_base_auth(user, password) {
 
 function createNodes(data) {
   dr.range([0,maxRadius]);
-  console.log("El max");
-  console.log(d3.max(data, function(d) {return d.contributions;}));  
   dr.domain([0, d3.max(data, function(d) {return d.contributions;})])
   var nodes = [];
-
-
   data.forEach(function(dat) {
     console.log(languages[dat.language]);
     console.log(dat.language);
