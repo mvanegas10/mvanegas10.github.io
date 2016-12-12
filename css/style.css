@@ -4,6 +4,7 @@
   text-align:center;
   background-color: #CFEDFB;
   padding-bottom: 0.5cm;
+  z-index: 1;
 }
 img {
   padding: 0.25cm 0.25cm 0.25cm 0.25cm;
@@ -20,7 +21,7 @@ h1 {
 }
 h2 {
   font-family: "Ubuntu";
-  font-size: 22px;
+  font-size: 34px;
   font-style: normal;
   font-variant: normal;
   font-weight: 500;
@@ -30,7 +31,7 @@ h2 {
 }
 h3 {
   font-family: "Ubuntu";
-  font-size: 16px;
+  font-size: 28px;
   font-style: normal;
   font-variant: normal;
   font-weight: 400;

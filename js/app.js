@@ -1,11 +1,13 @@
 var width = 980,
-    height = 650,
+    height = 500,
     padding = 1.5, // separation between same-color nodes
     clusterPadding = 16, // separation between different-color nodes
-    maxRadius = 12;    
+    maxRadius = 70;    
 
 var n = 200, // total number of nodes
-    m = 3; // number of distinct clusters
+    m = 8; // number of distinct clusters
+
+var dr = d3.scale.linear();
 
 var color = d3.scale.category10()
     .range(["#cc9a45",
@@ -20,66 +22,131 @@ var color = d3.scale.category10()
 "#637b38"])
     .domain([0,1,2,3,4,5,6,7,8,9]);
 
-// The largest node for each cluster.
-var clusters = new Array(m);
-
-
+var proj = [
+  {
+    "name": "Muequeta",
+    "contributions": 43,
+    "language": "Swift",
+    "svn_url": "https://github.com/mvanegas10/Muequeta"
+  },
+  {
+    "name": "Caso2",
+    "contributions": 43,
+    "language": "Swift",
+    "svn_url": "https://github.com/mvanegas10/Muequeta"
+  },  
+  {
+    "name": "javeandes-hackathon",
+    "contributions": 28,
+    "language": "JavaScript",
+    "svn_url": "https://github.com/mvanegas10/Muequeta"
+  }, 
+  {
+    "name": "ErosionIdentificationFromLandsatImages",
+    "contributions": 11,
+    "language": "Python",
+    "svn_url": "https://github.com/mvanegas10/ErosionIdentificationFromLandsatImages"
+  },    
+]
+var clusters;
 var repos = [];
 var languages = {};
-$.get('https://api.github.com/users/mvanegas10/repos', function(responseText) {
-    repos = responseText;
-
-    var lan = repos.map(function(d) {return d.language;})
-    for (var i = 0; i < lan.length; i++) {
-    	if (languages[lan[i]] === undefined)  {
-    		languages[lan[i]] = i;
-    	}
-	};
-	createForceChart(createNodes(repos));
+var cantRepos = 0;
+var auth = authorization;
+$.ajax({
+    type: 'GET',
+    url: 'https://api.github.com/users/mvanegas10/repos',
+    dataType: 'json',
+    beforeSend: function (xhr) {
+        xhr.setRequestHeader('Authorization', make_base_auth(auth.username, auth.password));
+    },
+    success: function (data) {
+      cantRepos = data.length;
+      var i = 1;      
+      data.forEach(function (repo) {
+        var contributions = undefined;
+        if (languages[repo.language] === undefined)  {
+          languages[repo.language] = i;
+          i++;
+        }
+        var project = {"name" : repo.name, "svn_url": repo.svn_url, "language": repo.language};
+        repos.push(project);         
+    });
+    clusters = new Array(Object.keys(languages).length); 
+    createForceChart(createNodes(repos));        
+  }
 });
 
+
 function createForceChart(nodes) {
-  var tip = d3.tip()
-    .attr('class', 'd3-tip')
-    .offset([-10, 0])
-    .html(function(d) {
-      return "<span>" + d.text + "</span>";
-    })
+	var tip = d3.tip()
+		.attr('class', 'd3-tip')
+		.offset([30, 0])
+		.html(function(d) {
+		  return "<span>" + d.text + "</span>";
+	})
 
-  var force = d3.layout.force()
-      .nodes(nodes)
-      .size([width, height])
-      .gravity(.02)
-      .charge(0)
-      .on("tick", tick)
-      .start();
+	var force = d3.layout.force()
+		.nodes(nodes)
+			.size([width, height])
+			.gravity(.02)
+			.charge(0)
+			.on("tick", tick)
+			.start();
 
-  var svg = d3.select("#forceChart").append("svg")
-      .attr("width", width)
-      .attr("height", height);
+	var svg = d3.select("#forceChart").append("svg")
+	  .attr("width", width)
+	  .attr("height", height);
 
-  var node = svg.selectAll("circle")
-      .data(nodes)
-    .enter().append("circle")
-      .on('mouseover', tip.show)
-      .on('mouseout', tip.hide)
-      .style("fill", function(d) { return color(d.cluster); })      
-      .call(force.drag);
+	var node = svg.selectAll("circle")
+	  .data(nodes)
+	.enter().append("circle")
+	  .on('mouseover', tip.show)
+	  .on('mouseout', tip.hide)	  
+	  .on('click', function (d) {
+		  var win = window.open(d.url, '_blank');
+		  win.focus();
 
-  node.transition()
-      .duration(750)
-      .delay(function(d, i) { return i * 5; })
-      .attrTween("r", function(d) {
-        var i = d3.interpolate(0, d.radius);
-        return function(t) { return d.radius = i(t); };
-      });
-  function tick(e) {
-    node
-        .each(cluster(10 * e.alpha * e.alpha))
-        .each(collide(.5))
-        .attr("cx", function(d) { return d.x; })
-        .attr("cy", function(d) { return d.y; });
-  }
+	  	console.log(d.url)})	  
+	  .style("fill", function(d) { return color(d.cluster); })      
+	  .call(force.drag);
+	    
+	node.transition()
+	  .duration(750)
+	  .delay(function(d, i) { return 5+ i *10; })
+	  .attrTween("r", function(d) {
+	    var i = d3.interpolate(0, d.radius);
+	    return function(t) { return d.radius = i(t); };
+	  });
+	function tick(e) {
+	node
+	    .each(cluster(10 * e.alpha * e.alpha))
+	    .each(collide(.5))
+	    .attr("cx", function(d) { return d.x; })
+	    .attr("cy", function(d) { return d.y; })   
+	}
+
+	var svg2 = d3.select("#legend").append("svg")
+    .attr("width", width)
+    .attr("height", 50);
+
+	svg2.selectAll("rect")
+	  .data(Object.keys(languages))
+	.enter().append("rect")
+	  .attr("x",function(d, i) {return i*100 + 5})
+	  .attr("y",10)
+	  .attr("width",20)
+	  .attr("height", 20)
+	  .style("fill", function(d,i) { return color(i+1); })
+
+  svg2.selectAll("text")
+    .data(Object.keys(languages))
+  .enter().append("text")
+    .attr("x",function(d, i) {return i*100 + 30})
+    .attr("y",25)
+    .attr("width",20)
+    .attr("height", 20)
+    .text(function(d,i) { return d; })          
 
   // Move d to be adjacent to the cluster node.
   function cluster(alpha) {
@@ -130,23 +197,43 @@ function createForceChart(nodes) {
   svg.call(tip);
 }
 
+
+function make_base_auth(user, password) {
+    var tok = user + ':' + password;
+    var hash = btoa(tok);
+    return 'Basic ' + hash;
+}
+
 function createNodes(data) {
+  dr.range([0,maxRadius]);
+  console.log("El max");
+  console.log(d3.max(data, function(d) {return d.contributions;}));  
+  dr.domain([0, d3.max(data, function(d) {return d.contributions;})])
   var nodes = [];
+
+
   data.forEach(function(dat) {
-  	console.log(languages);
+    console.log(languages[dat.language]);
+    console.log(dat.language);
+    console.log(Math.cos(0 / languages[dat.language] * 2 * Math.PI) * 200 + width / 2 + Math.random());
     var i = languages[dat.language],
-      r = 50,
+      r = (dat.contributions === undefined)? 30: dr(dat.contributions),
       d = {
-        text: dat.name,
-        cluster: i,
-        radius: r,
         x: Math.cos(i / m * 2 * Math.PI) * 200 + width / 2 + Math.random(),
-        y: Math.sin(i / m * 2 * Math.PI) * 200 + height / 2 + Math.random()
+        y: Math.sin(i / m * 2 * Math.PI) * 200 + height / 2 + Math.random(), 
+        radius: r,
+        cluster: i,        
+        url: dat.svn_url,
+        text: dat.name,
+        contributions:dat.contributions
       };
     if (!clusters[i] || (r > clusters[i].radius)) clusters[i] = d;
     nodes.push(d);
   });
   d3.select("#forceChart").html("");
   d3.select("#forceChart").selectAll("*").remove();  
+  d3.select("#legend").html("");
+  d3.select("#legend").selectAll("*").remove();  
+  console.log(nodes);  
   return nodes;
 } 
