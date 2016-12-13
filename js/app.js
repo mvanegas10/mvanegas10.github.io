@@ -63,17 +63,26 @@ function createForceChart(nodes) {
 	  .attr("width", width)
 	  .attr("height", height);
 
+  var selected = false;
+
 	var node = svg.selectAll("circle")
 	  .data(nodes)
 	.enter().append("circle")
 	  .on('mouseover', function (d) {
-      console.log(d)
       setDescription(d);
       tip.show;
     })
 	  .on('mouseout', tip.hide)	  
 	  .on('click', function (d) {
-		  setDescription(d)})
+      selected = false;
+      setDescription(d);
+      selected = true;
+      d3.selectAll("circle")[0].forEach(function (circle) {
+          d3.select(circle).style("fill", function(i){return color(i.cluster)
+        });
+      });
+      d3.select(this).style("fill", d3.rgb(color(d.cluster)).darker());
+		})
 	  .style("fill", function(d) { return color(d.cluster); })      
 	  .call(force.drag);
 	    
@@ -135,14 +144,14 @@ function createForceChart(nodes) {
   }
 
   function setDescription(data) {
-    console.log(data)
-    console.log(data)
-    d3.select("#projectName").text(data.text);
-    d3.select("#projectURL")
-      .text("Explore")
-      .attr("xlink:href", data.url)
-      .on("click", function() { window.open(data.url);});    
-    d3.select("#projectDescription").text(data.description);
+    if (!selected) {
+      d3.select("#projectName").text(data.text);
+      d3.select("#projectURL")
+        .text("Explore")
+        .attr("xlink:href", data.url)
+        .on("click", function() { window.open(data.url);});    
+      d3.select("#projectDescription").text(data.description);
+    }
   }
 
   // Resolves collisions between d and all other circles.
