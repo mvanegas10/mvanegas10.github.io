@@ -11,7 +11,8 @@ img {
   padding: 0.25cm 0.25cm 0.25cm 0.25cm;
 }
 a {
-  font-family: "Ubuntu";  
+  font-family: "Ubuntu";
+  display: inline-block; 
 }
 h1 {
   font-family: "Ubuntu";
