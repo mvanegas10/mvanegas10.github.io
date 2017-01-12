@@ -1,5 +1,5 @@
-var width = 570,
-    height = 500,
+var width = 980,
+    height = 700,
     padding = 1.5, // separation between same-color nodes
     clusterPadding = 16, // separation between different-color nodes
     maxRadius = 70;    
@@ -93,12 +93,25 @@ function createForceChart(nodes) {
 	    var i = d3.interpolate(0, d.radius);
 	    return function(t) { return d.radius = i(t); };
 	  });
+
+    var labels = svg.selectAll("text")
+      .data(nodes)
+      .enter().append("text")
+        .html(function(d) {
+          var html = d.text.split("-");
+          return html.join("<br>");
+        });
+          // return d.text.replace('-','<br/>').replace('_','<br/>').toUpperCase();});
+
 	function tick(e) {
 	node
 	    .each(cluster(10 * e.alpha * e.alpha))
 	    .each(collide(.5))
-	    .attr("cx", function(d) { return d.x; })
-	    .attr("cy", function(d) { return d.y; })   
+	    .attr("cx", function(d) { return d.x+50; })
+	    .attr("cy", function(d) { return d.y; }) 
+
+      labels.attr("x", function (d) { return d.x; })  
+        .attr("y", function (d) { return d.y; });
 	}
 
 	var svg2 = d3.select("#legend").append("svg")
@@ -203,7 +216,7 @@ function createNodes(data) {
     console.log(dat.language);
     console.log(Math.cos(0 / languages[dat.language] * 2 * Math.PI) * 200 + width / 2 + Math.random());
     var i = languages[dat.language],
-      r = (dat.contributions === undefined)? 30: dr(dat.contributions),
+      r = (dat.contributions === undefined)? (Math.random() * (80-30) + 30): dr(dat.contributions),
       d = {
         x: Math.cos(i / m * 2 * Math.PI) * 200 + width / 2 + Math.random(),
         y: Math.sin(i / m * 2 * Math.PI) * 200 + height / 2 + Math.random(), 
