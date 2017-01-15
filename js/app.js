@@ -74,7 +74,13 @@ function createForceChart(nodes) {
       setDescription(d);
       tip.show;
     })
-    .on('mouseout', tip.hide)
+    .on('mouseout', tip.hide)    
+    .style("text-anchor", "middle")
+    .call(force.drag);
+
+  var circles = nodeEnter.append("circle")
+    .attr("r", function (d) {return d.radius;})
+	  .style("fill", function(d) { return color(d.cluster); })
     .on('click', function (d) {
       selected = false;
       setDescription(d);
@@ -84,13 +90,7 @@ function createForceChart(nodes) {
         });
       });
       d3.select(this).style("fill", d3.rgb(color(d.cluster)).darker());
-    })
-    .style("text-anchor", "middle")
-    .call(force.drag);
-
-  var circles = nodeEnter.append("circle")
-    .attr("r", function (d) {return d.radius;})
-	  .style("fill", function(d) { return color(d.cluster); });   
+    });   
 	    
 	node.transition()
 	  .duration(750)
@@ -128,12 +128,6 @@ function createForceChart(nodes) {
       .attr("transform",function (d) {
         return "translate(" + d.x + "," + d.y + ")";
       })
-
-	    // .attr("cx", function(d) { return d.x+50; })
-	    // .attr("cy", function(d) { return d.y; }) 
-
-      // labels.attr("x", function (d) { return d.x; })  
-      //   .attr("y", function (d) { return d.y; });
 	}
 
 	var svg2 = d3.select("#legend").append("svg")
