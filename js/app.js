@@ -66,15 +66,16 @@ function createForceChart(nodes) {
 
   var selected = false;
 
-	var node = svg.selectAll("circle")
-	  .data(nodes)
-	.enter().append("circle")
-	  .on('mouseover', function (d) {
+	var node = svg.selectAll("g")
+    .data(nodes);
+    
+  var nodeEnter = node.enter().append("g")
+    .on('mouseover', function (d) {
       setDescription(d);
       tip.show;
     })
-	  .on('mouseout', tip.hide)	  
-	  .on('click', function (d) {
+    .on('mouseout', tip.hide)
+    .on('click', function (d) {
       selected = false;
       setDescription(d);
       selected = true;
@@ -83,9 +84,13 @@ function createForceChart(nodes) {
         });
       });
       d3.select(this).style("fill", d3.rgb(color(d.cluster)).darker());
-		})
-	  .style("fill", function(d) { return color(d.cluster); })      
-	  .call(force.drag);
+    })
+    .style("text-anchor", "middle")
+    .call(force.drag);
+
+  var circles = nodeEnter.append("circle")
+    .attr("r", function (d) {return d.radius;})
+	  .style("fill", function(d) { return color(d.cluster); });   
 	    
 	node.transition()
 	  .duration(750)
@@ -95,20 +100,37 @@ function createForceChart(nodes) {
 	    return function(t) { return d.radius = i(t); };
 	  });
 
-    // var labels = svg.selectAll("text")
-    //   .data(nodes)
-    //   .enter().append("text")
-    //     .html(function(d) {
-    //       var html = d.text.split("-");
-    //       return html.join("<br>");
-    //     });
+  var labels = nodeEnter.append("text")
+    .html(function(d) {
+      if (reposStatic[d.text] && reposStatic[d.text].contributions >= 32) {  
+        if(d.text.indexOf("-") !== -1){
+          var html = d.text.split("-");
+          return html.join(" ");
+        }          
+        else if(d.text.indexOf("_") !== -1){
+          var html = d.text.split("_");
+          return html.join(" ");
+        } 
+        else if(d.text.indexOf(".") !== -1){
+          var html = d.text.split(".");
+          return html[0];
+        } 
+        else return d.text;
+      }
+      return "";
+    }); 
+
 
 	function tick(e) {
 	node
 	    .each(cluster(10 * e.alpha * e.alpha))
 	    .each(collide(.5))
-	    .attr("cx", function(d) { return d.x+50; })
-	    .attr("cy", function(d) { return d.y; }) 
+      .attr("transform",function (d) {
+        return "translate(" + d.x + "," + d.y + ")";
+      })
+
+	    // .attr("cx", function(d) { return d.x+50; })
+	    // .attr("cy", function(d) { return d.y; }) 
 
       // labels.attr("x", function (d) { return d.x; })  
       //   .attr("y", function (d) { return d.y; });
