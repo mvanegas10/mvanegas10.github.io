@@ -188,6 +188,8 @@ function createForceChart(nodes) {
           .attr("xlink:href", data.homepage)
           .on("click", function() { window.open(data.homepage);});        
       }
+      else d3.select("#homepage").html("")
+        .text("")
     }
   }
 
