@@ -134,9 +134,12 @@ function createForceChart(nodes) {
     .attr("width", 980)
     .attr("height", 50);
 
-	svg2.selectAll("rect")
+	var legendG = svg2.selectAll("g")
 	  .data(Object.keys(languages))
-	.enter().append("rect")
+	
+  var legendGEnter = legendG.enter().append("g");
+
+  var rects = legendGEnter.append("rect")
     .on('mouseover', function(d) {callFromLanguage(d);})
 	  .attr("x",function(d, i) {return i*140 + 25})
 	  .attr("y",10)
@@ -144,9 +147,7 @@ function createForceChart(nodes) {
 	  .attr("height", 20)
 	  .style("fill", function(d,i) { return color(i+1); })
 
-  svg2.selectAll("text")
-    .data(Object.keys(languages))
-  .enter().append("text")
+  legendGEnter.append("text")
     .attr("x",function(d, i) {return i*140 + 50})
     .attr("y",25)
     .attr("width",20)
@@ -211,11 +212,14 @@ function createForceChart(nodes) {
     };
   }
   svg.call(tip);
+
+  function callFromLanguage (lan) {
+    var groupsForce = svg.selectAll("circle");
+    
+  }
 }
 
-function callFromLanguage (lan) {
-  console.log(lan);
-}
+
 
 function make_base_auth(user, password) {
     var tok = user + ':' + password;
