@@ -1,8 +1,8 @@
 var width = 980,
-    height = 700,
+    height = 500,
     padding = 1.5, // separation between same-color nodes
     clusterPadding = 16, // separation between different-color nodes
-    maxRadius = 70;    
+    maxRadius = 117;    
 
 var n = 200, // total number of nodes
     m = 8; // number of distinct clusters
@@ -18,6 +18,8 @@ var repos = [];
 var languages = {};
 var cantRepos = 0;
 
+var reposStatic = {"SisTrans":{"contributions":117},"Caso2":{"contributions":9},"kobdig-master":{"contributions":7},"kobdig-validation":{"contributions":3},"DALGO":{"contributions":5},"HCLimei":{"contributions":17},"InfracompCaso2":{"contributions":1},"javeandes-hackathon":{"contributions":28},"TOMSA":{"contributions":10},"VA201620-Project09":{"contributions":84},"DesarrolloSw":{"contributions":0},"VisualT4":{"contributions":7},"mvanegas10.github.io":{"contributions":28},"World-s-Biggest-Data-Breaches":{"contributions":15},"HCLimei_Desktop":{"contributions":32},"DataEncryption":{"contributions":4},"ErosionIdentificationFromLandsatImages":{"contributions":11},"PacmanProjects":{"contributions":5},"Muequeta-Backend":{"contributions":11},"Muequeta":{"contributions":43},"Plebiscito-Colombia-2016":{"contributions":51},"rbsas":{"contributions":23},"TallerRestAngular":{"contributions":0}}
+
 $.ajax({
     type: 'GET',
     url: 'https://api.github.com/users/mvanegas10/repos',
@@ -27,7 +29,6 @@ $.ajax({
       var i = 1;      
       data.forEach(function (repo) {
         var contributions = undefined;
-        console.log(repo.language)
         if (repo.language) {
           if (languages[repo.language] === undefined)  {
             languages[repo.language] = i;
@@ -94,14 +95,13 @@ function createForceChart(nodes) {
 	    return function(t) { return d.radius = i(t); };
 	  });
 
-    var labels = svg.selectAll("text")
-      .data(nodes)
-      .enter().append("text")
-        .html(function(d) {
-          var html = d.text.split("-");
-          return html.join("<br>");
-        });
-          // return d.text.replace('-','<br/>').replace('_','<br/>').toUpperCase();});
+    // var labels = svg.selectAll("text")
+    //   .data(nodes)
+    //   .enter().append("text")
+    //     .html(function(d) {
+    //       var html = d.text.split("-");
+    //       return html.join("<br>");
+    //     });
 
 	function tick(e) {
 	node
@@ -110,8 +110,8 @@ function createForceChart(nodes) {
 	    .attr("cx", function(d) { return d.x+50; })
 	    .attr("cy", function(d) { return d.y; }) 
 
-      labels.attr("x", function (d) { return d.x; })  
-        .attr("y", function (d) { return d.y; });
+      // labels.attr("x", function (d) { return d.x; })  
+      //   .attr("y", function (d) { return d.y; });
 	}
 
 	var svg2 = d3.select("#legend").append("svg")
@@ -209,14 +209,12 @@ function make_base_auth(user, password) {
 
 function createNodes(data) {
   dr.range([0,maxRadius]);
-  dr.domain([0, d3.max(data, function(d) {return d.contributions;})])
+  var arrDat = [];
+  dr.domain([0, 117])
   var nodes = [];
   data.forEach(function(dat) {
-    console.log(languages[dat.language]);
-    console.log(dat.language);
-    console.log(Math.cos(0 / languages[dat.language] * 2 * Math.PI) * 200 + width / 2 + Math.random());
     var i = languages[dat.language],
-      r = (dat.contributions === undefined)? (Math.random() * (80-30) + 30): dr(dat.contributions),
+      r = (!reposStatic[dat.name])? dr(10): dr(reposStatic[dat.name].contributions),
       d = {
         x: Math.cos(i / m * 2 * Math.PI) * 200 + width / 2 + Math.random(),
         y: Math.sin(i / m * 2 * Math.PI) * 200 + height / 2 + Math.random(), 
