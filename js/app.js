@@ -34,7 +34,7 @@ $.ajax({
             languages[repo.language] = i;
             i++;
           }
-          var project = {"name" : repo.name, "svn_url": repo.svn_url, "language": repo.language, "description": repo.description};
+          var project = {"name" : repo.name, "svn_url": repo.svn_url, "language": repo.language, "description": repo.description, "homepage": repo.homepage};
           repos.push(project); 
         }        
     });
@@ -181,6 +181,13 @@ function createForceChart(nodes) {
         .attr("xlink:href", data.url)
         .on("click", function() { window.open(data.url);});    
       d3.select("#projectDescription").text(data.description);
+      console.log(data)
+      if(data.homepage){
+        d3.select("#homepage")
+          .text(data.homepage)
+          .attr("xlink:href", data.homepage)
+          .on("click", function() { window.open(data.homepage);});        
+      }
     }
   }
 
@@ -243,8 +250,9 @@ function createNodes(data) {
         url: dat.svn_url,
         text: dat.name,
         description: dat.description,
-        contributions:dat.contributions
-      };
+        contributions:dat.contributions,
+        homepage: dat.homepage
+      };      
     if (!clusters[i] || (r > clusters[i].radius)) clusters[i] = d;
     nodes.push(d);
   });
