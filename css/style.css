@@ -11,11 +11,11 @@ img {
   padding: 0.25cm 0.25cm 0.25cm 0.25cm;
 }
 a {
-  font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+  font-family: Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;
   display: inline-block; 
 }
 h1 {
-  font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+  font-family: Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;
   font-size: 38px;
   font-style: normal;
   font-variant: normal;
@@ -25,7 +25,7 @@ h1 {
   text-align:center;
 }
 h2 {
-  font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+  font-family: Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;
   font-size: 34px;
   font-style: normal;
   font-variant: normal;
@@ -35,7 +35,7 @@ h2 {
   text-align:center; 
 }
 h3 {
-  font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+  font-family: Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;
   font-size: 28px;
   font-style: normal;
   font-variant: normal;
@@ -45,7 +45,7 @@ h3 {
   text-align:center; 
 }
 p {
-  font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+  font-family: Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;
   font-size: 16px;
   font-style: normal;
   font-variant: normal;
