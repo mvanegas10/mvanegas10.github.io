@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- <link rel="stylesheet" href="/css/style.css"> -->
-    <link rel="stylesheet" href="https://mvanegas10.github.io/css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="//d3js.org/d3.v3.min.js"></script>
@@ -21,7 +21,7 @@
 
     </script>
   </head>
-<body>
+<body style="margin-bottom: 2cm;">
   <div class="row">
     <div class="col-md-12 stuck">
       <div class="row"><div class="col-md-12"><h1>Meili Vanegas Hernández</h1></div></div>
@@ -41,17 +41,100 @@
   </div>
   <div class="row" style="padding-top:5.5cm;">
     <div class="col-md-2"></div>
-    <div class="col-md-8">
-      <div class="row"> <p>Systems & Computing Engineer. Master of Systems and Computer Engineering student at Universidad de los Andes, Bogotá, Colombia.</p></div>
-      <div class="row"> <h3>My Projects</h3></div>
+    <div class="col-md-8">      
+      <div class="row"> <h3>Projects</h3></div>
       <div class="row" id="legend"> </div>
       <div class"row" style="height: 115px;text-align:center;" style="z-index:100">
-        <h3 id="projectName"></h3>
+        <p style="font-size:19px;" id="projectName"></p>
         <a id="projectURL"></a>
         <p id="projectDescription"></p>
         <a id="homepage"></a>
       </div>
-      <div class="row" id="forceChart"></div>        
+      <div class="row" id="forceChart"></div>   
+      <div class="row"> 
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <h3 style="margin:0.5cm;">Current projects</h3>
+          <p style="text-align:left;">Information Visualization</p>
+          <ul>
+            <li><p style="font-size:16px;text-align:justify;">Currently working in association with <a href="http://johnguerra.co/" target="_blank">John Guerra</a> in a <a href="https://github.com/mvanegas10/INFOVIS" target="_blank">photo visualization project</a>.</p></li>
+          </ul>
+          <p style="text-align:left;">Big Data & Data Analytics</p>
+          <ul>
+            <li><p style="font-size:16px;text-align:justify;">Currently working at <a href="http://alianzacaoba.co/" target="_blank">Alianza Caoba</a>, researching and creating solutions for public and private companies in Colombia.</p></li>
+          </ul>
+        </div>  
+        <div class="col-md-2"></div>
+      </div> 
+      <div class="row"> 
+        <h3 style="margin:0.5cm;">Education</h3>
+        <div class="col-md-1 "></div>
+        <div class="col-md-4 education">
+          <p>Bachelor's Degree BSc. Systems and Computing Engineering</p>
+          <p style="font-size:13px;">Universidad de los Andes</p>
+          <p style="font-size:13px;">Bogotá, Colombia</p>
+          <p style="font-size:13px;">2012 - 2016</p>
+        </div>  
+        <div class="col-md-2"></div>
+        <div class="col-md-4 education">
+          <p>Master's Degree MSc. Systems and Computing Engineering</p>
+          <p style="font-size:13px;"></p>
+          <p style="font-size:13px;">Universidad de los Andes</p>
+          <p style="font-size:13px;">Bogotá, Colombia</p>
+          <p style="font-size:13px;">2017 - present</p>
+        </div>    
+        <div class="col-md-1 "></div>
+      </div> 
+      <div class="row"> 
+        <h3 style="margin:0.5cm;">Experience</h3>
+        <div class="col-md-1"></div>
+        <div class="col-md-4">
+          <p style="font-size:19px;margin-bottom:0.5cm">Academic</p>
+          <div style="margin-bottom:1cm;">
+            <a href="https://sistemasacademico.uniandes.edu.co/~isis3301/dokuwiki/doku.php" target="_blank"><p>Business Inteligence Teaching Assistant</p></a>
+            <p style="text-align:left;">Universidad de los Andes. Bogotá, Colombia</p>
+            <p style="text-align:left;">August 2016 - December 2016</p>
+          </div>
+          <div style="margin-bottom:1cm;">
+            <a href="https://sistemasacademico.uniandes.edu.co/~isis1304/dokuwiki/doku.php" target="_blank"><p>Computer Organization Teaching Assistant</p></a>
+            <p style="text-align:left;">Universidad de los Andes. Bogotá, Colombia</p>
+            <p style="text-align:left;">January 2015 - December 2015</p>
+          </div>
+          <div style="margin-bottom:1cm;">
+            <a href="https://sistemasacademico.uniandes.edu.co/~isis1205/dokuwiki/doku.php" target="_blank"><p>Object Oriented Programming</p></a>
+            <p style="text-align:left;">Universidad de los Andes. Bogotá, Colombia</p>
+            <p style="text-align:left;">August 2014 - December 2014</p>
+          </div>
+          <div style="margin-bottom:1cm;">
+            <a href="http://catalogo.uniandes.edu.co/2014/Catalog/Courses/IIND/2000/IIND-2109" target="_blank"><p>Decision Support Systems</p></a>
+            <p style="text-align:left;">Universidad de los Andes. Bogotá, Colombia</p>
+            <p style="text-align:left;">August 2013 - May 2015</p>
+          </div>
+        </div>  
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+          <p style="font-size:19px;margin-bottom:0.5cm">Research</p>
+          <div style="margin-bottom:1cm;">
+            <p>Researcher Assistant</p>
+            <a href="http://alianzacaoba.co/" target="_blank"><p style="text-align:left;">Alianza CAOBA. Bogotá, Colombia</p></a>
+            <p class="experience">Developing research activities, state of art review and software development oriented in Big Data and Data Analytics.</p>
+            <p style="text-align:left;">January 2017 - Present</p>
+          </div>
+          <div style="margin-bottom:1cm;">
+            <p>Reasercher Intern</p>
+            <p style="text-align:left;">Université de Nice Sophia Antipolis. Nice, France</p>
+            <p class="experience">Working in collaboration with <a href="http://www.i3s.unice.fr/fr/presentation" target="_blank">I3S</a> and <a href="http://www.umrespace.org/?lang=fr" target="_blank">ESPACE</a> Laboratories in the project Transport Oriented Modeling for urban denSification Analysis (TOMSA)/ECOS Nord. Building a urban decision support platform, which holds a simulation based on an multi-agent urban model of densification implemented in Java and a visual analytics tool using PostgreSQL, PostGIS, NodeJS, JavaScript, HTML and CSS.</p>
+            <p style="text-align:left;">June 2016 - July 2016</p>
+          </div>
+          <div style="margin-bottom:1cm;">
+            <p>Undergraduate Reasercher</p>
+            <p style="text-align:left;">Universidad de los Andes. Bogotá, Colombia</p>
+            <p class="experience">Working as undergraduate researcher for the image processing research team at Universidad de los Andes, <a href="https://imagine.uniandes.edu.co/index.php?lang=es" target="_blank">IMAGINE</a>, performing visual analytics in urban systems, centered on analyzers and researchers as end users. Developing a web application using PostgreSQL, PostGIS, NodeJS, JavaScript, HTML and CSS.</p>
+            <p style="text-align:left;">January 2016 - December 2016</p>
+          </div>
+        </div>    
+        <div class="col-md-1"></div>
+      </div>     
     </div>
     <div class="col-md-2"></div>
   </div>  
