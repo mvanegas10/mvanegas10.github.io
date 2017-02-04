@@ -10,7 +10,7 @@ var n = 35, // total number of nodes
 var dr = d3.scale.linear();
 
 var color = d3.scale.category10()
-    .range(["#daa4ff","#74bd5b","#ec8fb4","#ff9f8a","#fbb153","#02d1e5","#91ffaa","#8bebe5","#4cbea8","#d5ffaa"])
+    .range(["#daa4ff","#74bd5b","#ec8fb4","#ff9f8a","#fbb153","#02d1e5","#91ffaa","#8bebe5","#4cbea8","#d5ffaa","#ca5572","#6097ce","#72a553"])
     .domain([0,1,2,3,4,5,6,7,8,9]);
 
 var clusters;
