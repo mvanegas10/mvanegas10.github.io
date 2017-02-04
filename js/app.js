@@ -4,8 +4,8 @@ var width = 980,
     clusterPadding = 16, // separation between different-color nodes
     maxRadius = 117;    
 
-var n = 200, // total number of nodes
-    m = 8; // number of distinct clusters
+var n = 35, // total number of nodes
+    m = 11; // number of distinct clusters
 
 var dr = d3.scale.linear();
 
@@ -47,7 +47,7 @@ $.ajax({
 function createForceChart(nodes) {
 	var tip = d3.tip()
 		.attr('class', 'd3-tip')
-		.offset([30, 0])
+		.offset([2000, 25000])
 		.html(function(d) {
 		  return "<span>" + d.text + "</span>";
 	})
@@ -55,8 +55,8 @@ function createForceChart(nodes) {
 	var force = d3.layout.force()
 		.nodes(nodes)
 			.size([width, height])
-			.gravity(.02)
-			.charge(0)
+			.gravity(0.05)
+			.charge(10)
 			.on("tick", tick)
 			.start();
 
@@ -126,13 +126,13 @@ function createForceChart(nodes) {
 	    .each(cluster(10 * e.alpha * e.alpha))
 	    .each(collide(.5))
       .attr("transform",function (d) {
-        return "translate(" + d.x + "," + d.y + ")";
+        return "translate(" + d.x + "," + (d.y - 50) + ")";
       })
 	}
 
 	var svg2 = d3.select("#legend").append("svg")
     .attr("width", 980)
-    .attr("height", 50);
+    .attr("height", 100);
 
 	var legendG = svg2.selectAll("g")
 	  .data(Object.keys(languages))
@@ -141,15 +141,27 @@ function createForceChart(nodes) {
 
   var rects = legendGEnter.append("rect")
     .on('mouseover', function(d) {callFromLanguage(d);})
-	  .attr("x",function(d, i) {return i*140 + 25})
-	  .attr("y",10)
+	  .attr("x",function(d, i) {
+      if (i < 7) return i*140 + 25;
+      else return (i-7)*140 + 25;
+    })
+	  .attr("y",function(d, i) {
+      if (i < 7) return 10;
+      else return 60;
+    })
 	  .attr("width",20)
 	  .attr("height", 20)
 	  .style("fill", function(d,i) { return color(i+1); })
 
   legendGEnter.append("text")
-    .attr("x",function(d, i) {return i*140 + 50})
-    .attr("y",25)
+    .attr("x",function(d, i) {
+      if(i < 7) return i*140 + 50;
+      else return (i-7)*140 + 50;
+    })
+    .attr("y",function(d, i) {
+      if (i < 7) return 25;
+      else return 75;
+    })
     .attr("width",20)
     .attr("height", 20)
     .text(function(d,i) { return d; })          
@@ -181,7 +193,6 @@ function createForceChart(nodes) {
         .attr("xlink:href", data.url)
         .on("click", function() { window.open(data.url);});    
       d3.select("#projectDescription").text(data.description);
-      console.log(data)
       if(data.homepage){
         d3.select("#homepage")
           .text(data.homepage)
@@ -246,7 +257,7 @@ function createNodes(data) {
       r = (!reposStatic[dat.name])? dr(10): dr(reposStatic[dat.name].contributions),
       d = {
         x: Math.cos(i / m * 2 * Math.PI) * 200 + width / 2 + Math.random(),
-        y: Math.sin(i / m * 2 * Math.PI) * 200 + height / 2 + Math.random(), 
+        y: Math.sin(i / m * 2 * Math.PI) * 200 + Math.random(), 
         radius: r,
         cluster: i,        
         url: dat.svn_url,
@@ -262,6 +273,5 @@ function createNodes(data) {
   d3.select("#forceChart").selectAll("*").remove();  
   d3.select("#legend").html("");
   d3.select("#legend").selectAll("*").remove();  
-  console.log(nodes);  
   return nodes;
 } 
