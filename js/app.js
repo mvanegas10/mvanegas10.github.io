@@ -17,8 +17,15 @@ var n = 35, // total number of nodes
 	var repos = [];
 	var languages = {};
 	var cantRepos = 0;
+	var reposStatic = {'Industrial-Manufacturing-App':{'contributions':50},'Caso2':{'contributions':9},'kobdig-master':{'contributions':7},'kobdig-validation':{'contributions':3},'DALGO':{'contributions':5},'HCLimei':{'contributions':17},'InfracompCaso2':{'contributions':1},'javeandes-hackathon':{'contributions':28},'TOMSA':{'contributions':10},'VA201620-Project09':{'contributions':84},'DesarrolloSw':{'contributions':0},'VisualT4':{'contributions':7},'mvanegas10.github.io':{'contributions':28},'World-s-Biggest-Data-Breaches':{'contributions':15},'HCLimei_Desktop':{'contributions':37},'DataEncryption':{'contributions':4},'ErosionIdentificationFromLandsatImages':{'contributions':11},'PacmanProjects':{'contributions':5},'Muequeta-Backend':{'contributions':11},'Muequeta':{'contributions':43},'Plebiscito-Colombia-2016':{'contributions':51},'rbsas':{'contributions':23},'TallerRestAngular':{'contributions':0}}
 
-	var reposStatic = {'Industrial-Manufacturing-App':{'contributions':117},'Caso2':{'contributions':9},'kobdig-master':{'contributions':7},'kobdig-validation':{'contributions':3},'DALGO':{'contributions':5},'HCLimei':{'contributions':17},'InfracompCaso2':{'contributions':1},'javeandes-hackathon':{'contributions':28},'TOMSA':{'contributions':10},'VA201620-Project09':{'contributions':84},'DesarrolloSw':{'contributions':0},'VisualT4':{'contributions':7},'mvanegas10.github.io':{'contributions':28},'World-s-Biggest-Data-Breaches':{'contributions':15},'HCLimei_Desktop':{'contributions':37},'DataEncryption':{'contributions':4},'ErosionIdentificationFromLandsatImages':{'contributions':11},'PacmanProjects':{'contributions':5},'Muequeta-Backend':{'contributions':11},'Muequeta':{'contributions':43},'Plebiscito-Colombia-2016':{'contributions':51},'rbsas':{'contributions':23},'TallerRestAngular':{'contributions':0}}
+	d3.json('./docs/repos.json', function(data) {
+		data.forEach(function(d) {
+			if(!reposStatic[d.name]) {
+				reposStatic[d.name] = {'contributions':20};
+			}
+		});
+	})
 
 	$.ajax({
 	  type: 'GET',
