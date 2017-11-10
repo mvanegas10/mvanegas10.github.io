@@ -1,4 +1,4 @@
-var width = 980,
+var width = document.getElementById('forceChart').parentElement.clientWidth,
 height = 500,
 	padding = 1.5, // separation between same-color nodes
 	clusterPadding = 16, // separation between different-color nodes
@@ -132,7 +132,7 @@ var n = 35, // total number of nodes
 	 }
 
 	 var svg2 = d3.select('#legend').append('svg')
-	 .attr('width', 980)
+	 .attr('width', width)
 	 .attr('height', 100);
 
 	 var legendG = svg2.selectAll('g')

@@ -23,9 +23,8 @@ div.right {
 	position: fixed;
 	width: 30%;
 	bottom: 0cm;
-	padding: 1.5cm 0cm;
-	background-color: rgba(250,250,250,1);
-	z-index: 10;
+	padding-bottom: 1.5cm;
+	background-color: rgb(250,250,250);
 }
 .education {
 	text-align: center;
