@@ -3,7 +3,7 @@ var width = document.getElementById('forceChart').parentElement.clientWidth,
 	padding = 1.5, // separation between same-color nodes
 	clusterPadding = 16, // separation between different-color nodes
 	maxRadius = 70,
-	x
+	x	
 
 var n = 35, // total number of nodes
 	m = 11; // number of distinct clusters
@@ -19,6 +19,18 @@ var repos = [];
 var languages = {};
 var cantRepos = 0;
 
+let heightTotal = d3.select('#setter').node().getBoundingClientRect().height
+let widthTotal = document.getElementById('imgContainer').parentElement.clientWidth;
+
+console.log(widthTotal)
+
+// d3.select('#imgContainer')
+// 	.style('max-height', `${heightTotal}px`)
+// 	.style('width', '100%')
+// 	.style('background', 'url("./images/escher-metamorphose.jpg") repeat')
+// 	.style('background-size', `${widthTotal}px auto`)
+// 	.style('background-opacity', `0.1`)
+
 $.ajax({
 	type: 'GET',
 	url: 'https://api.github.com/users/mvanegas10/repos',
@@ -29,13 +41,13 @@ $.ajax({
 	},
 	fail: function () {
 		console.log('fail')
-		d3.json('./docs/repos.json').then(data => {
+		d3.json('./docs/repos.json', data => {
 			processData(data).then(repos => createForceChart(createNodes(repos)))
 		})
 	},
 	error: function () {
 		console.log('error')
-		d3.json('./docs/repos.json').then(data => {
+		d3.json('./docs/repos.json', data => {
 			processData(data).then(repos => createForceChart(createNodes(repos)))
 		})
 	}
