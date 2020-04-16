@@ -3,7 +3,7 @@ var width = document.getElementById('forceChart').parentElement.clientWidth,
 	padding = 1.5, // separation between same-color nodes
 	clusterPadding = 16, // separation between different-color nodes
 	maxRadius = 70,
-	x	
+	x
 
 var n = 35, // total number of nodes
 	m = 11; // number of distinct clusters
@@ -100,9 +100,10 @@ function createForceChart(nodes) {
 
 	var selected = false;
 
+	let tmp = nodes.sort((a, b) => a.radius - b.radius)
+
 	var node = svg.selectAll('g')
 		.data(nodes);
-
 
 	var nodeEnter = node.enter().append('g')
 		.on('mouseover', function (d) {
@@ -119,6 +120,19 @@ function createForceChart(nodes) {
 		})
 		.style('fill', function (d) { return color(d.cluster); })
 		.style('fill-opacity', 0.5)
+		.style('stroke', function (d) {
+			console.log(d.url)
+			if (d.url === tmp[tmp.length - 1].url)
+				return color(d.cluster)
+			else
+				return 'none'
+		})
+		.style('stroke-width', function (d, i) {
+			if (d.url === tmp[tmp.length - 1].url)
+				return '5'
+			else
+				return ''
+		})			
 		.on('click', function (d) {
 			selected = false;
 			setDescription(d);
@@ -126,17 +140,16 @@ function createForceChart(nodes) {
 			d3.selectAll('circle')[0].forEach(function (circle) {
 				d3.select(circle).style('fill', function (i) {
 					return color(i.cluster)
-				})
-					.style('stroke', function (i) {
-						return d3.rgb(color(i.cluster)).darker()
-					})
-					.style('stroke-width', '5')
+				}).style('stroke', 'none')
 			});
-			d3.select(this).style('fill', d3.rgb(color(d.cluster)).darker()).style('stroke', 'none');
+			d3.select(this).style('fill', d3.rgb(color(d.cluster)).darker()).style('stroke', function (i) {
+				return d3.rgb(color(i.cluster)).darker()
+			})
+				.style('stroke-width', '5')
 		});
 
-	let tmp = nodes.sort((a, b) => a.radius - b.radius)
-	setDescription(tmp[tmp.length - 1]);
+	
+	setDescription(tmp[tmp.length - 1]);	
 
 	node.transition()
 		.duration(750)
