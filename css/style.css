@@ -1,5 +1,15 @@
-html {
+@font-face {
+	font-family: "Antic";
+	src: url("./fonts/Antic-Regular.ttf") format("opentype");
+}
+
+body {
 	background: #fff;
+	font-family: "Antic" !important;
+}
+
+text {
+	font-family: "Antic" !important;
 }
 .stuck {
 	position: fixed;
@@ -45,7 +55,6 @@ img {
 	padding: 0.25cm 0.25cm 0.25cm 0.25cm;
 }
 a {
-	font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
 	font-variant: small-caps;
 	color: #000;
 	font-weight: 400;
@@ -54,7 +63,6 @@ a {
 	cursor: pointer;
 }
 text {
-	font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
 	font-variant: small-caps;
 	color: #000;
 	font-weight: 400;
@@ -70,17 +78,15 @@ a:hover, a:focus {
 	color: rgba(0, 0, 0, 0.75);
 }
 td.table-info * {
-	font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
 	font-size: 16px;
 	font-style: normal;
 	font-variant: normal;
-	font-weight: 300;
+	font-weight: 400;
 	text-align: left;
 	vertical-align: top;
 	padding-left: 0.5cm;
 }
 p.table-title {
-	font-family: Verdana, Helvetica, Arial, sans-serif;
 	font-variant: small-caps;
 	text-align: right;
 	display: inline-block;
@@ -94,7 +100,6 @@ td {
 }
 h1 {
 	color: rgba(16, 16, 16, 0.75);
-	font-family: Verdana, Helvetica, Arial, sans-serif;
 	font-variant: small-caps;
 	font-size: 38px;
 	font-style: normal;
@@ -104,7 +109,6 @@ h1 {
 	text-align:center;
 }
 h2 {
-	font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
 	font-size: 34px;
 	font-style: normal;
 	font-variant: normal;
@@ -114,7 +118,6 @@ h2 {
 	text-align:center; 
 }
 h3 {
-	font-family: Verdana, Helvetica, Arial, sans-serif;
 	font-variant: small-caps;
 	font-size: 28px;
 	color: rgba(16, 16, 16, 0.75);
@@ -126,7 +129,6 @@ h3 {
 	cursor: default;
 }
 h4 {
-	font-family: Verdana, Helvetica, Arial, sans-serif;
 	font-variant: small-caps;
 	color: rgba(16, 16, 16, 0.75);
 	font-size: 22px;
@@ -136,24 +138,21 @@ h4 {
 	cursor: default;
 }
 p {
-	font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
 	font-size: 16px;
 	font-style: normal;
 	font-variant: normal;
-	font-weight: 300;
+	font-weight: 400;
 	text-align:center; 
 	cursor: default;
 }
 label {
 	color: rgba(16, 16, 16, 0.75) !important;
-	font-family: Verdana, Helvetica, Arial, sans-serif;
 	font-variant: small-caps;
 	font-size: 15px;
-	font-weight: 100;
+	font-weight: 400;
 	display:block;
 	text-align:center;
 }
 text {
-	font-family: Verdana, Helvetica, Arial, sans-serif;
 	font-variant: small-caps;
 }
