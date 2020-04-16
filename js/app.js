@@ -3,8 +3,7 @@ var width = document.getElementById('forceChart').parentElement.clientWidth,
 	padding = 1.5, // separation between same-color nodes
 	clusterPadding = 16, // separation between different-color nodes
 	maxRadius = 70,
-	x,
-	reposStatic = {}
+	x
 
 var n = 35, // total number of nodes
 	m = 11; // number of distinct clusters
@@ -20,22 +19,33 @@ var repos = [];
 var languages = {};
 var cantRepos = 0;
 
-d3.json('./docs/repos.json', function (data) {
-	data.forEach(function (d) {
-		if (!reposStatic[d.name]) {
-			reposStatic[d.name] = { 'contributions': 20 };
-		}
-	});
-})
-
 $.ajax({
 	type: 'GET',
 	url: 'https://api.github.com/users/mvanegas10/repos',
 	dataType: 'json',
 	success: function (data) {
+		console.log('sucess', data)
+		processData(data).then(repos => createForceChart(createNodes(repos)))
+	},
+	fail: function () {
+		console.log('fail')
+		d3.json('./docs/repos.json').then(data => {
+			processData(data).then(repos => createForceChart(createNodes(repos)))
+		})
+	},
+	error: function () {
+		console.log('error')
+		d3.json('./docs/repos.json').then(data => {
+			processData(data).then(repos => createForceChart(createNodes(repos)))
+		})
+	}
+});
+
+const processData = data => {
+	return new Promise(async resolve => {
 		cantRepos = data.length;
 		var i = 1;
-		data.forEach(function (repo) {
+		await data.map(function (repo) {
 			var contributions = undefined;
 			if (repo.language) {
 				if (languages[repo.language] === undefined) {
@@ -50,9 +60,9 @@ $.ajax({
 			}
 		});
 		clusters = new Array(Object.keys(languages).length);
-		createForceChart(createNodes(repos));
-	}
-});
+		resolve(repos)
+	})
+}
 
 
 function createForceChart(nodes) {
