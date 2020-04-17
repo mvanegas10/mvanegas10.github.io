@@ -24,12 +24,14 @@ let widthTotal = document.getElementById('imgContainer').parentElement.clientWid
 
 console.log(widthTotal)
 
-// d3.select('#imgContainer')
-// 	.style('max-height', `${heightTotal}px`)
-// 	.style('width', '100%')
-// 	.style('background', 'url("./images/escher-metamorphose.jpg") repeat')
-// 	.style('background-size', `${widthTotal}px auto`)
-// 	.style('background-opacity', `0.1`)
+d3.select('#imgContainer')
+	.style('height', `${heightTotal}px`)
+	.style('width', '100%')
+	.style('background', 'url("./images/two-birds.png")')
+	.style('opacity', '1')
+	.style('background-size', ` auto`)//${widthTotal}px
+	.style('background-repeat', ` repeat`)
+	.style('background-opacity', `0.1`)
 
 $.ajax({
 	type: 'GET',
