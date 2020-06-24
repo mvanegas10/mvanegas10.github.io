@@ -77,7 +77,7 @@ const reposMedia = {
   ErosionIdentificationFromLandsatImages: "erosionIdentification.png",
   "javeandes-hackathon": "hackathon.png",
   "Manufacturing-Process": "manufacturingProcess.png",
-  "TOMSA": "tomsa.gif",
+  "TOMSA": "TOMSA.gif",
 };
 
 const processData = (data) => {
