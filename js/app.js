@@ -37,8 +37,6 @@ let heightTotal = d3.select("#setter").node().getBoundingClientRect().height;
 let widthTotal = document.getElementById("imgContainer").parentElement
   .clientWidth;
 
-console.log(widthTotal);
-
 d3.select("#imgContainer")
   .style("height", `${heightTotal}px`)
   .style("width", "100%")
@@ -142,7 +140,6 @@ function createForceChart(nodes) {
     .enter()
     .append("g")
     .on("mouseover", function (d) {
-      console.log(d);
       setDescription(d);
       tip.show;
     })
@@ -160,7 +157,6 @@ function createForceChart(nodes) {
     })
     .style("fill-opacity", 0.5)
     .style("stroke", function (d) {
-      console.log(d.url);
       if (d.url === tmp[tmp.length - 1].url) return color(d.cluster);
       else return "none";
     })
