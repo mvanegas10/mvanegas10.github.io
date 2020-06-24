@@ -50,10 +50,11 @@ d3.select("#imgContainer")
 
 $.ajax({
   type: "GET",
-  url: "https://api.github.com/users/mvanegas10/repos",
+  url: "https://api.github.com/users/mvanegas10/repos?page=1&per_page=100",
   dataType: "json",
   success: function (data) {
-    console.log("sucess", data);
+	  data = data.filter(d => d.name !== 'mvanegas10.github.io')
+    console.log("sucess", JSON.stringify(data));
     processData(data).then((repos) => createForceChart(createNodes(repos)));
   },
   fail: function () {
@@ -76,7 +77,7 @@ const reposMedia = {
   ErosionIdentificationFromLandsatImages: "erosionIdentification.png",
   "javeandes-hackathon": "hackathon.png",
   "Manufacturing-Process": "manufacturingProcess.png",
-  "kobdig-validation": "tomsa.gif",
+  "TOMSA": "tomsa.gif",
 };
 
 const processData = (data) => {
@@ -173,16 +174,11 @@ function createForceChart(nodes) {
       selected = true;
       d3.selectAll("circle")[0].forEach(function (circle) {
         d3.select(circle)
-          .style("fill", function (i) {
-            return color(i.cluster);
-          })
+          .style("fill-opacity", '0.5')
           .style("stroke", "none");
       });
       d3.select(this)
-        .style("fill", d3.rgb(color(d.cluster)).darker())
-        .style("stroke", function (i) {
-          return d3.rgb(color(i.cluster)).darker();
-        })
+        .style("fill-opacity", "1")
         .style("stroke-width", "5");
     });
 
