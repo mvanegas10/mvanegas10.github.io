@@ -32,7 +32,7 @@ div.right {
 .black {
 	color: black !important;
     font-weight: bold !important;
-
+	background-color: transparent !important;
 }
 .fotter {
 	position: fixed;
