@@ -306,7 +306,7 @@ function createForceChart(nodes) {
             "data-tooltip",
             `<div class='left-align'><img src='images/${data.media}' width='100%'></div>`
           )
-          .html("View demo");
+          .html("View media");
         M.AutoInit();
         $(document).ready(function () {
           $(".tooltipped").tooltip();
