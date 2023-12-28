@@ -19,7 +19,7 @@ text {
 	opacity: 0.9;
 	background-color: rgb(250,250,250);
 	z-index: 1;
-	width: 30%;
+	width: 25%;
 	height:110vh;
 }
 div.right {
@@ -36,7 +36,7 @@ div.right {
 }
 .fotter {
 	position: fixed;
-	width: 30%;
+	width: 25%;
 	bottom: 0cm;
 	padding-bottom: 1.5cm;
 }
